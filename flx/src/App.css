@@ -182,3 +182,53 @@
     border-right-color: var(--border);
   }
 }
+
+/* Product Image Auto Scroll */
+
+.product-scroll-box {
+    height: 550px;
+    overflow: hidden;
+    position: relative;
+}
+
+.product-scroll-track {
+    animation: autoScroll 30s linear infinite;
+}
+
+.product-scroll-box:hover .product-scroll-track {
+    animation-play-state: paused;
+}
+
+@keyframes autoScroll {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-50%);
+    }
+}
+
+.product-scroll-box {
+    height: 550px;
+    overflow: hidden;
+    position: relative;
+}
+
+.product-scroll-track {
+    animation: autoScroll 20s linear infinite;
+}
+
+.product-scroll-box:hover .product-scroll-track {
+    animation-play-state: paused;
+}
+
+@keyframes autoScroll {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-50%);
+    }
+}

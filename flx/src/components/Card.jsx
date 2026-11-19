@@ -1,119 +1,120 @@
 import { useNavigate } from "react-router-dom";
+import products from "../data/products";
 
 function Card({ searchQuery = "" }) {
 
   const navigate = useNavigate();
 
-  const products = [
-    {
-      id: 1,
-      name: "Luxury 2BHK Apartment",
-      category: "Flats & Apartments",
-      price: "₹45,00,000",
-      location: "Kochi, Kerala",
-      date: "Today",
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600",
-    },
-    {
-      id: 2,
-      name: "Hyundai Creta 2022",
-      category: "Cars",
-      price: "₹12,50,000",
-      location: "Thrissur, Kerala",
-      date: "Yesterday",
-      image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600",
-    },
-    {
-      id: 3,
-      name: "Royal Enfield Classic 350",
-      category: "Bikes",
-      price: "₹1,65,000",
-      location: "Calicut, Kerala",
-      date: "Today",
-      image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600",
-    },
-    {
-      id: 4,
-      name: "Toyota Innova Crysta",
-      category: "Travellers",
-      price: "₹18,00,000",
-      location: "Kochi, Kerala",
-      date: "2 days ago",
-      image: "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=600",
-    },
-    {
-      id: 5,
-      name: "iPhone 15 Pro Max",
-      category: "Mobiles",
-      price: "₹85,000",
-      location: "Malappuram, Kerala",
-      date: "Today",
-      image: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600",
-    },
-    {
-      id: 6,
-      name: "MacBook Pro M3",
-      category: "Laptops",
-      price: "₹1,25,000",
-      location: "Kochi, Kerala",
-      date: "Yesterday",
-      image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600",
-    },
-    {
-      id: 7,
-      name: "Modern Luxury Sofa",
-      category: "Furniture",
-      price: "₹32,000",
-      location: "Palakkad, Kerala",
-      date: "Today",
-      image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600",
-    },
-    {
-      id: 8,
-      name: "Premium Smart Watch",
-      category: "Watches",
-      price: "₹8,500",
-      location: "Kannur, Kerala",
-      date: "3 days ago",
-      image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600",
-    },
-    {
-      id: 9,
-      name: "Canon DSLR Camera",
-      category: "Cameras",
-      price: "₹48,000",
-      location: "Kozhikode, Kerala",
-      date: "Today",
-      image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600",
-    },
-    {
-      id: 10,
-      name: "Double Door Refrigerator",
-      category: "Appliances",
-      price: "₹28,000",
-      location: "Ernakulam, Kerala",
-      date: "Yesterday",
-      image: "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=600",
-    },
-    {
-      id: 11,
-      name: "Modern Gaming Setup",
-      category: "Gaming",
-      price: "₹65,000",
-      location: "Kochi, Kerala",
-      date: "Today",
-      image: "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=600",
-    },
-    {
-      id: 12,
-      name: "Luxury Dining Table",
-      category: "Furniture",
-      price: "₹25,000",
-      location: "Thrissur, Kerala",
-      date: "Yesterday",
-      image: "https://images.unsplash.com/photo-1617806118233-18e1de247200?w=600",
-  },
-  ];
+  // const products = [
+  //   {
+  //     id: 1,
+  //     name: "Luxury 2BHK Apartment",
+  //     category: "Flats & Apartments",
+  //     price: "₹45,00,000",
+  //     location: "Kochi, Kerala",
+  //     date: "Today",
+  //     image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Hyundai Creta 2022",
+  //     category: "Cars",
+  //     price: "₹12,50,000",
+  //     location: "Thrissur, Kerala",
+  //     date: "Yesterday",
+  //     image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Royal Enfield Classic 350",
+  //     category: "Bikes",
+  //     price: "₹1,65,000",
+  //     location: "Calicut, Kerala",
+  //     date: "Today",
+  //     image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Toyota Innova Crysta",
+  //     category: "Travellers",
+  //     price: "₹18,00,000",
+  //     location: "Kochi, Kerala",
+  //     date: "2 days ago",
+  //     image: "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=600",
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "iPhone 15 Pro Max",
+  //     category: "Mobiles",
+  //     price: "₹85,000",
+  //     location: "Malappuram, Kerala",
+  //     date: "Today",
+  //     image: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600",
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "MacBook Pro M3",
+  //     category: "Laptops",
+  //     price: "₹1,25,000",
+  //     location: "Kochi, Kerala",
+  //     date: "Yesterday",
+  //     image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600",
+  //   },
+  //   {
+  //     id: 7,
+  //     name: "Modern Luxury Sofa",
+  //     category: "Furniture",
+  //     price: "₹32,000",
+  //     location: "Palakkad, Kerala",
+  //     date: "Today",
+  //     image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600",
+  //   },
+  //   {
+  //     id: 8,
+  //     name: "Premium Smart Watch",
+  //     category: "Watches",
+  //     price: "₹8,500",
+  //     location: "Kannur, Kerala",
+  //     date: "3 days ago",
+  //     image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600",
+  //   },
+  //   {
+  //     id: 9,
+  //     name: "Canon DSLR Camera",
+  //     category: "Cameras",
+  //     price: "₹48,000",
+  //     location: "Kozhikode, Kerala",
+  //     date: "Today",
+  //     image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600",
+  //   },
+  //   {
+  //     id: 10,
+  //     name: "Double Door Refrigerator",
+  //     category: "Appliances",
+  //     price: "₹28,000",
+  //     location: "Ernakulam, Kerala",
+  //     date: "Yesterday",
+  //     image: "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=600",
+  //   },
+  //   {
+  //     id: 11,
+  //     name: "Modern Gaming Setup",
+  //     category: "Gaming",
+  //     price: "₹65,000",
+  //     location: "Kochi, Kerala",
+  //     date: "Today",
+  //     image: "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=600",
+  //   },
+  //   {
+  //     id: 12,
+  //     name: "Luxury Dining Table",
+  //     category: "Furniture",
+  //     price: "₹25,000",
+  //     location: "Thrissur, Kerala",
+  //     date: "Yesterday",
+  //     image: "https://images.unsplash.com/photo-1617806118233-18e1de247200?w=600",
+  // },
+  // ];
 
   const filteredProducts = products.filter((product) =>
 
@@ -172,11 +173,10 @@ function Card({ searchQuery = "" }) {
               <div className="relative overflow-hidden">
 
                 <img
-                  src={product.image}
+                  src={product.images[0]}
                   alt={product.name}
                   className="w-full h-52 object-cover group-hover:scale-110 transition duration-500"
                 />
-
                 <span className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
                   {product.category}
                 </span>
@@ -212,12 +212,11 @@ function Card({ searchQuery = "" }) {
                 {/* View Button */}
 
                 <button
-                  onClick={() => navigate(`/product/${product.id}`, { state: { product } })}
+                  onClick={() => navigate(`/product/${product.id}`)}
                   className="w-full mt-5 bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition duration-300"
                 >
                 View Product →
-                </button>
-
+              </button>
               </div>
 
             </div>
