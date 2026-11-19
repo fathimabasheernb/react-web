@@ -1,56 +1,100 @@
 import { useNavigate } from "react-router-dom";
 import products from "../data/products";
 
-function Card({ searchTerm, favorites, onToggleFavorite }) {
-
+function Card({
+  searchTerm,
+  selectedCategory,
+  favorites = [],
+  onToggleFavorite
+}) {
   const navigate = useNavigate();
 
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes((searchTerm || "").toLowerCase()) ||
-    product.category.toLowerCase().includes((searchTerm || "").toLowerCase()) ||
-    product.location.toLowerCase().includes((searchTerm || "").toLowerCase())
-  );
+  const categoryKeywords = {
+    Cars: ["car", "vehicle", "bike", "motorcycle"],
+    Mobiles: ["mobile", "phone", "smartphone"],
+    Electronics: ["electronic", "laptop", "computer", "camera", "watch", "appliance"],
+    Fashion: ["fashion", "clothing", "dress"],
+    Furniture: ["furniture", "sofa", "table", "chair"],
+    Properties: ["property", "properties", "apartment", "flat", "house", "real estate"]
+  };
+
+  const filteredProducts = products.filter((product) => {
+    const search = (searchTerm || "").toLowerCase().trim();
+
+    const matchesSearch =
+      product.name.toLowerCase().includes(search) ||
+      product.category.toLowerCase().includes(search) ||
+      product.location.toLowerCase().includes(search);
+
+    const keywords = categoryKeywords[selectedCategory] || [];
+
+    const matchesCategory =
+      !selectedCategory ||
+      selectedCategory === "All" ||
+      keywords.some((keyword) =>
+        `${product.name} ${product.category}`.toLowerCase().includes(keyword)
+      );
+
+    return matchesSearch && matchesCategory;
+  });
 
   return (
-
     <section
       id="products-section"
-      className="bg-gray-50 py-16 px-6 md:px-12 scroll-mt-6"
+      className="bg-gray-50 py-16 px-6 md:px-12 scroll-mt-32"
     >
-
       <div className="max-w-7xl mx-auto">
 
-        <div className="flex justify-between items-center mb-10">
+        {/* Heading */}
+        <div className="flex flex-wrap justify-between items-center gap-4 mb-10">
 
           <div>
-
             <p className="text-blue-600 font-semibold uppercase tracking-widest text-sm">
               Explore Marketplace
             </p>
 
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">
-              Fresh Recommendations
+              {selectedCategory && selectedCategory !== "All"
+                ? `${selectedCategory} Products`
+                : "Fresh Recommendations"}
             </h2>
 
             <p className="text-gray-500 mt-2">
               Discover amazing deals and find something you love.
             </p>
-
           </div>
 
-          <button className="hidden md:block text-blue-600 font-semibold hover:underline">
+          <button
+            onClick={() => navigate("/products")}
+            className="text-blue-600 font-semibold hover:text-blue-800 hover:underline"
+          >
             View All →
           </button>
 
         </div>
 
         {/* Product Cards */}
-
         {filteredProducts.length === 0 ? (
 
-          <p className="text-center text-gray-500 py-10">
-            No products found. Try another search!
-          </p>
+          <div className="text-center py-16 bg-white rounded-2xl">
+            <p className="text-5xl mb-4">🔍</p>
+            <h3 className="text-xl font-bold text-gray-800">
+              No products found!
+            </h3>
+            <p className="text-gray-500 mt-2">
+              Try another search or category.
+            </p>
+
+            <button
+              onClick={() => {
+                navigate("/");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className="mt-5 bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition"
+            >
+              Back to Home
+            </button>
+          </div>
 
         ) : (
 
@@ -60,26 +104,27 @@ function Card({ searchTerm, favorites, onToggleFavorite }) {
 
               <div
                 key={product.id}
-                className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 group border border-gray-100"
+                className="product-card product-animation bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 group"
               >
 
                 {/* Product Image */}
-
                 <div className="relative overflow-hidden">
 
                   <img
                     src={product.images[0]}
                     alt={product.name}
-                    className="w-full h-52 object-cover group-hover:scale-110 transition duration-500"
+                    className="product-image w-full h-56 object-cover"
                   />
 
                   <span className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
                     {product.category}
                   </span>
 
+                  {/* Favourite */}
                   <button
-                    onClick={() => onToggleFavorite(product.id)}
-                    className="absolute top-3 right-3 bg-white w-9 h-9 rounded-full shadow-md text-xl hover:scale-110 transition"
+                    onClick={() => onToggleFavorite?.(product.id)}
+                    aria-label="Add or remove favourite"
+                    className="heart-animation absolute top-3 right-3 bg-white w-10 h-10 rounded-full shadow-md text-xl hover:scale-110 hover:bg-red-50 transition"
                   >
                     {favorites.includes(product.id) ? "❤️" : "♡"}
                   </button>
@@ -87,7 +132,6 @@ function Card({ searchTerm, favorites, onToggleFavorite }) {
                 </div>
 
                 {/* Product Details */}
-
                 <div className="p-5">
 
                   <h3 className="text-lg font-bold text-gray-800 truncate">
@@ -98,19 +142,15 @@ function Card({ searchTerm, favorites, onToggleFavorite }) {
                     {product.price}
                   </p>
 
-                  <div className="flex justify-between items-center mt-4 text-sm text-gray-500">
-
-                    <span>📍 {product.location}</span>
-
+                  <div className="flex justify-between items-center mt-4 text-sm text-gray-500 gap-2">
+                    <span className="truncate">📍 {product.location}</span>
                     <span>{product.date}</span>
-
                   </div>
 
-                  {/* View Product Button */}
-
+                  {/* View Product */}
                   <button
                     onClick={() => navigate(`/product/${product.id}`)}
-                    className="w-full mt-5 bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition duration-300"
+                    className="animated-button w-full mt-5 bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700"
                   >
                     View Product →
                   </button>
@@ -126,7 +166,6 @@ function Card({ searchTerm, favorites, onToggleFavorite }) {
         )}
 
         {/* Explore More */}
-
         <div className="text-center mt-12">
 
           <button
@@ -139,11 +178,8 @@ function Card({ searchTerm, favorites, onToggleFavorite }) {
         </div>
 
       </div>
-
     </section>
-
   );
-
 }
 
 export default Card;

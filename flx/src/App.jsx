@@ -8,68 +8,56 @@ import Footer from "./components/Footer";
 
 import Detail from "./pages/Detail";
 import AllProducts from "./pages/AllProducts";
+import Login from "./pages/Login";
+import Sell from "./pages/Sell";
 
 function App() {
-
   const [searchText, setSearchText] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   const [favorites, setFavorites] = useState(() => {
     return JSON.parse(localStorage.getItem("flx-favourites") || "[]");
   });
 
-  // Save favourites in localStorage
-
   useEffect(() => {
     localStorage.setItem("flx-favourites", JSON.stringify(favorites));
   }, [favorites]);
 
-  // Add or remove favourites
-
   const toggleFavorite = (id) => {
-
     setFavorites((previousFavorites) =>
-
       previousFavorites.includes(id)
-
         ? previousFavorites.filter((item) => item !== id)
-
         : [...previousFavorites, id]
-
     );
-
   };
 
   const handleSearch = (text) => {
+    setSearchText(text);
+    setSelectedCategory("All");
+  };
 
-  setSearchText(text);
-
-  setTimeout(() => {
-
-    document.getElementById("products-section")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-
-  }, 100);
-
-};
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    setSearchText("");
+  };
 
   return (
-
     <Routes>
-
-      {/* Home Page */}
 
       <Route
         path="/"
         element={
           <>
-            <Nav onSearch={handleSearch} />
+            <Nav
+              onSearch={handleSearch}
+              onCategorySelect={handleCategorySelect}
+            />
 
             <Hero />
 
             <Card
               searchTerm={searchText}
+              selectedCategory={selectedCategory}
               favorites={favorites}
               onToggleFavorite={toggleFavorite}
             />
@@ -78,8 +66,6 @@ function App() {
           </>
         }
       />
-
-      {/* All Products Page */}
 
       <Route
         path="/products"
@@ -91,17 +77,14 @@ function App() {
         }
       />
 
-      {/* Individual Product Details */}
+      <Route path="/product/:id" element={<Detail />} />
 
-      <Route
-        path="/product/:id"
-        element={<Detail />}
-      />
+      <Route path="/login" element={<Login />} />
+
+      <Route path="/sell" element={<Sell />} />
 
     </Routes>
-
   );
-
 }
 
 export default App;
