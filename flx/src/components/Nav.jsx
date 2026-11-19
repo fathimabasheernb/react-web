@@ -4,10 +4,9 @@ function Nav({ onSearch }) {
 
   const [searchText, setSearchText] = useState("");
 
-  const handleSearch = () => {
-    onSearch(searchText);
-  };
-
+const handleSearch = () => {
+  onSearch(searchText);
+};
   return (
     <nav className="w-full bg-white shadow-sm">
 
@@ -32,27 +31,27 @@ function Nav({ onSearch }) {
         {/* Search */}
         <div className="flex flex-1 border-2 border-gray-800 rounded-md overflow-hidden">
 
-          <input
-            type="text"
-            placeholder="Find cars, mobiles, electronics and more..."
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSearch();
-              }
-            }}
-            className="flex-1 px-4 py-3 outline-none text-sm"
-          />
+  <input
+    type="text"
+    placeholder="Find cars, mobiles, electronics and more..."
+    value={searchText}
+    onChange={(e) => setSearchText(e.target.value)}
+    onKeyDown={(e) => {
+      if (e.key === "Enter") {
+        handleSearch();
+      }
+    }}
+    className="flex-1 px-4 py-3 outline-none text-sm"
+  />
 
-          <button
-            onClick={handleSearch}
-            className="bg-gray-900 text-white px-6 hover:bg-blue-600 transition"
-          >
-            🔍
-          </button>
+  <button
+    onClick={handleSearch}
+    className="bg-gray-900 text-white px-6 hover:bg-blue-600 transition"
+  >
+    🔍
+  </button>
 
-        </div>
+</div>
 
         {/* Login */}
         <button className="font-bold text-gray-800 hover:text-blue-600">
